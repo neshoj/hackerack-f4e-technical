@@ -2,8 +2,9 @@ package com.hackerrank.restaurant.items.veg;
 
 import com.hackerrank.restaurant.items.Category;
 import com.hackerrank.restaurant.items.Container;
+import com.hackerrank.restaurant.items.Item;
 
-public class VegBurger {
+public class VegBurger implements Item {
     /**
      *
      * The item name

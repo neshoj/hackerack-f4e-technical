@@ -2,8 +2,9 @@ package com.hackerrank.restaurant.items.beverages;
 
 import com.hackerrank.restaurant.items.Category;
 import com.hackerrank.restaurant.items.Container;
+import com.hackerrank.restaurant.items.Item;
 
-public class Smoothie {
+public class Smoothie implements Item {
     /**
      *
      * The item name
@@ -50,12 +51,13 @@ public class Smoothie {
         this.cost = cost;
     }
 
+
     /**
      *
      * @return The item category
      */
     public Category getCategory() {
-        return null;
+        return Category.HotBeverages;
     }
 
     /**
@@ -63,6 +65,6 @@ public class Smoothie {
      * @return The item container
      */
     public Container getContainer() {
-        return null;
+        return Container.Cup;
     }
 }

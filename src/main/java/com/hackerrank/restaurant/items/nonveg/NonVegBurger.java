@@ -50,12 +50,13 @@ public class NonVegBurger {
         this.cost = cost;
     }
 
+
     /**
      *
      * @return The item category
      */
     public Category getCategory() {
-        return null;
+        return Category.Snacks;
     }
 
     /**
@@ -63,6 +64,6 @@ public class NonVegBurger {
      * @return The item container
      */
     public Container getContainer() {
-        return null;
+        return Container.Wrapper;
     }
 }

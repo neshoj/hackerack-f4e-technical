@@ -2,8 +2,9 @@ package com.hackerrank.restaurant.items.beverages;
 
 import com.hackerrank.restaurant.items.Category;
 import com.hackerrank.restaurant.items.Container;
+import com.hackerrank.restaurant.items.Item;
 
-public class Cider {
+public class Cider implements Item {
     /**
      *
      * The item name
@@ -15,6 +16,7 @@ public class Cider {
      * The item cost per unit
      */
     private double cost;
+
 
     /**
      *
@@ -50,12 +52,13 @@ public class Cider {
         this.cost = cost;
     }
 
+
     /**
      *
      * @return The item category
      */
     public Category getCategory() {
-        return null;
+        return Category.HotBeverages;
     }
 
     /**
@@ -63,6 +66,6 @@ public class Cider {
      * @return The item container
      */
     public Container getContainer() {
-        return null;
+        return Container.Cup;
     }
 }

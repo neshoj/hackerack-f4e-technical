@@ -2,8 +2,9 @@ package com.hackerrank.restaurant.items.beverages;
 
 import com.hackerrank.restaurant.items.Category;
 import com.hackerrank.restaurant.items.Container;
+import com.hackerrank.restaurant.items.Item;
 
-public class Margarita {
+public class Margarita implements Item {
     /**
      *
      * The item name
@@ -55,7 +56,7 @@ public class Margarita {
      * @return The item category
      */
     public Category getCategory() {
-        return null;
+        return Category.HotBeverages;
     }
 
     /**
@@ -63,6 +64,6 @@ public class Margarita {
      * @return The item container
      */
     public Container getContainer() {
-        return null;
+        return Container.Glass;
     }
 }
