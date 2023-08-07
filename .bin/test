@@ -1,0 +1,65 @@
+#!/bin/bash
+
+mvn clean test -Dtest=RestaurantTests
+
+if [[ $? -ne 0 ]]
+then
+    mkdir "./target/surefire-reports"
+    cat > "./target/surefire-reports/TEST-com.hackerrank.restaurant.tests.RestaurantTests.xml" <<'EOL'
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="50" failures="50" name="com.hackerrank.restaurant.tests.RestaurantTests" time="0">
+  <testcase name="noSuchItemExceptionForInventoryIncrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="noSuchOrderExceptionForOrderPayment" time="0"><failure></failure></testcase>
+  <testcase name="noSuchItemExceptionForOrderAddItem" time="0"><failure></failure></testcase>
+  <testcase name="badQuantityExceptionForOrderAddItem" time="0"><failure></failure></testcase>
+  <testcase name="notEnoughItemExceptionForOrderAddItem" time="0"><failure></failure></testcase>
+  <testcase name="noSuchItemExceptionForOrderDecrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="duplicateItemEntryExceptionForInventoryAddItem" time="0"><failure></failure></testcase>
+  <testcase name="notEnoughItemExceptionForOrderDecrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="badQuantityExceptionForInventoryAddItem" time="0"><failure></failure></testcase>
+  <testcase name="duplicateItemEntryExceptionForOrderAddItem" time="0"><failure></failure></testcase>
+  <testcase name="badQuantityExceptionForOrderIncrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="badQuantityExceptionForInventoryDecrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="noSuchItemExceptionForInventoryDecrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="noSuchItemExceptionForInventoryRemoveItem" time="0"><failure></failure></testcase>
+  <testcase name="noSuchItemExceptionForOrderRemoveItem" time="0"><failure></failure></testcase>
+  <testcase name="notEnoughItemExceptionForInventoryDecrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="noSuchItemExceptionForOrderIncrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="notEnoughItemExceptionForOrderIncrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="emptyOrderExceptionForPlaceOrder" time="0"><failure></failure></testcase>
+  <testcase name="badQuantityExceptionForOrderDecrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="badQuantityExceptionForInventoryIncrementQuantity" time="0"><failure></failure></testcase>
+  <testcase name="addItemAndBadIncrementBadDecrementQuantityAndValidateMenuAndValidateQuantity" time="0"><failure></failure></testcase>
+  <testcase name="addItemAndIncrementDecrementQuantityAndValidateMenuAndValidateQuantity" time="0"><failure></failure></testcase>
+  <testcase name="addDuplicateItemAndValidateQuantity" time="0"><failure></failure></testcase>
+  <testcase name="removeNonExistingItemAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="addItemAndValidateQuantity" time="0"><failure></failure></testcase>
+  <testcase name="removeNonExistingItemAndValidateQuantity" time="0"><failure></failure></testcase>
+  <testcase name="addDuplicateItemAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="removeItemAndValidateQuantity" time="0"><failure></failure></testcase>
+  <testcase name="addItemWithBadQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="addItemAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="removeItemAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="addItemWithBadQuantityAndValidateQuantity" time="0"><failure></failure></testcase>
+  <testcase name="createItemAndValidateCost" time="0"><failure></failure></testcase>
+  <testcase name="createItemAndValidateName" time="0"><failure></failure></testcase>
+  <testcase name="createItemAndValidateContainer" time="0"><failure></failure></testcase>
+  <testcase name="createItemAndUpdateCostAndValidateCost" time="0"><failure></failure></testcase>
+  <testcase name="createItemAndValidateCategory" time="0"><failure></failure></testcase>
+  <testcase name="addDuplicateItemAndValidateOrderAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="removeNonExistingItemAndValidateOrderAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="removeItemAndValidateOrderAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="addItemWithBadQuantityAndValidateOrderAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="addItemAndValidateOrderAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="addItemAndBadIncrementBadDecrementQuantityAndValidateOrderAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="addItemAndIncrementDecrementQuantityAndValidateOrderAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="addNonExistingItemAndValidateOrderAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="orderPaymentAndValidatePayableAmountAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="orderPaymentWithNonExistingOrder" time="0"><failure></failure></testcase>
+  <testcase name="placeOrderAndValidateOrdersAndValidateInventoryQuantityAndValidateMenu" time="0"><failure></failure></testcase>
+  <testcase name="placeEmptyOrderAndValidateOrders" time="0"><failure></failure></testcase>
+</testsuite>
+EOL
+fi
+
+exit 0
