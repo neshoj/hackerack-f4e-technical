@@ -56,7 +56,7 @@ public class VegBurger implements Item {
      * @return The item category
      */
     public Category getCategory() {
-        return null;
+        return Category.Snacks;
     }
 
     /**
@@ -64,6 +64,6 @@ public class VegBurger implements Item {
      * @return The item container
      */
     public Container getContainer() {
-        return null;
+        return Container.Wrapper;
     }
 }

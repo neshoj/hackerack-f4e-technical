@@ -57,7 +57,7 @@ public class Smoothie implements Item {
      * @return The item category
      */
     public Category getCategory() {
-        return Category.HotBeverages;
+        return Category.ColdBeverages;
     }
 
     /**
@@ -65,6 +65,6 @@ public class Smoothie implements Item {
      * @return The item container
      */
     public Container getContainer() {
-        return Container.Cup;
+        return Container.Glass;
     }
 }

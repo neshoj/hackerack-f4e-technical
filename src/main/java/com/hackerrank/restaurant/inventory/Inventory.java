@@ -74,10 +74,8 @@ public class Inventory {
      * @return List of all the items in the inventory
      */
     public List<Item> getItems() {
-
         List<Item> items = new ArrayList<>();
         this.itemsCount.forEach((item, integer) -> items.add(item));
-
         return items;
     }
 

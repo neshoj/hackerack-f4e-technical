@@ -56,7 +56,7 @@ public class Margarita implements Item {
      * @return The item category
      */
     public Category getCategory() {
-        return Category.HotBeverages;
+        return Category.ColdBeverages;
     }
 
     /**
