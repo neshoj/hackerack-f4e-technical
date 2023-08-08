@@ -6,11 +6,11 @@ import com.hackerrank.restaurant.exceptions.NoSuchItemException;
 import com.hackerrank.restaurant.exceptions.NotEnoughItemException;
 import com.hackerrank.restaurant.inventory.Inventory;
 import com.hackerrank.restaurant.items.Item;
-import com.hackerrank.restaurant.menu.Menu;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class Order extends Menu {
+public class Order {
     /**
      * The order id
      */
@@ -45,15 +45,25 @@ public class Order extends Menu {
      * @throws DuplicateItemEntryException When adding an existing item in the order
      */
 
-    @Override
     public void addItem(Item item, int quantity) {
         if (quantity < 0) {
             throw new BadQuantityException(quantity < 0 ? "Expecting a value greater than zero but -1 found." : "Expecting a value greater than zero but 0 found.");
         }
-        int inventory = this.getQuantity(item);
-        if (quantity > inventory) {
+
+        int itemIsAvailable = Inventory.inventory.getQuantity(item);
+
+        if (itemIsAvailable == 0) {
             throw new NoSuchItemException("Item '" + item.getName() + "' is not available.");
         }
+
+        if (quantity > itemIsAvailable) {
+            throw new NotEnoughItemException("Not enough quantity for the item '" + item.getName() + "'.");
+        }
+        Integer itemInMenu = this.items.get(item);
+        if (itemInMenu != null) {
+            throw new DuplicateItemEntryException("Cannot add duplicate item '" + item.getName() + "'.");
+        }
+        Inventory.inventory.decrementQuantity(item, quantity);
         this.items.put(item, quantity);
     }
 
@@ -62,10 +72,11 @@ public class Order extends Menu {
      * @throws NoSuchItemException When the item is not available
      */
     public void removeItem(Item item) {
-        Integer itemToBeRemoved = this.items.get(item);
-        if (itemToBeRemoved == null) {
+        Integer itemQty = this.items.get(item);
+        if (itemQty == null) {
             throw new NoSuchItemException(String.format("Item '%s' is not available.", item.getName()));
         }
+        Inventory.inventory.incrementQuantity(item, itemQty);
         this.items.remove(item);
     }
 
@@ -73,8 +84,8 @@ public class Order extends Menu {
      * @param item     The item in the order
      * @param quantity The expected quantity of the increment
      *                 <pre>
-     *                                 {@code updatedQuantity = currentQuantity + quantity;}
-     *                                 </pre>
+     *                                                                 {@code updatedQuantity = currentQuantity + quantity;}
+     *                                                                 </pre>
      * @throws BadQuantityException   When the quantity is less than or equal to zero
      * @throws NoSuchItemException    When the item is not available
      * @throws NotEnoughItemException When the updated quantity is greater than the quantity in the inventory
@@ -90,7 +101,12 @@ public class Order extends Menu {
         if (oldQuantity == null) {
             throw new NoSuchItemException("Item '" + item.getName() + "' is not available.");
         }
-        Integer newQuantity = oldQuantity + quantity;
+        int newQuantity = oldQuantity + quantity;
+        int inventoryQuantity = Inventory.inventory.getQuantity(item);
+        if (inventoryQuantity < newQuantity) {
+            throw new NotEnoughItemException("Not enough quantity for the item '" + item.getName() + "'.");
+        }
+        Inventory.inventory.decrementQuantity(item, quantity);
         this.items.put(item, newQuantity);
     }
 
@@ -98,8 +114,8 @@ public class Order extends Menu {
      * @param item     The item in the order
      * @param quantity The expected quantity of the decrement
      *                 <pre>
-     *                                 {@code updatedQuantity = currentQuantity - quantity;}
-     *                                 </pre>
+     *                                                                 {@code updatedQuantity = currentQuantity - quantity;}
+     *                                                                 </pre>
      * @throws BadQuantityException   When the quantity is less than or equal to zero
      * @throws NoSuchItemException    When the item is not available
      * @throws NotEnoughItemException When the updated quantity is less than zero
@@ -121,15 +137,20 @@ public class Order extends Menu {
         if (newQuantity < 0) {
             throw new NotEnoughItemException("Not enough quantity for the item '" + item.getName() + "'.");
         }
-        this.items.put(item, newQuantity);
+
+        Inventory.inventory.incrementQuantity(item, quantity);
+        if(newQuantity == 0){
+            this.items.remove(item);
+        }else {
+            this.items.put(item, newQuantity);
+        }
     }
 
     /**
      * @return All the items and added quantity
      */
-    @Override
-    public List<Item> getItems() {
-        return (List<Item>) this.items;
+    public Map<Item, Integer> getItems() {
+        return items;
     }
 
     /**
@@ -145,18 +166,19 @@ public class Order extends Menu {
      * </pre>
      */
     public String printOrder() {
-        Comparator<Item> itemNameComparator = Comparator.comparing(Item::getName);
-        this.getItems().sort(itemNameComparator);
+
+        Comparator<Item> comparator = (o2, o1) -> o1.getName().compareTo(o2.getName());
+        Map<Item, Integer> reverseSortedMap = new TreeMap<>(comparator.reversed());
+        reverseSortedMap.putAll(this.items);
+
+        Iterator<Map.Entry<Item, Integer>> iterator = reverseSortedMap.entrySet().iterator();
         StringBuilder names = new StringBuilder();
-
-        Iterator<Map.Entry<Item, Integer>> iterator = items.entrySet().iterator();
-
         while (iterator.hasNext()) {
 
             Map.Entry<Item, Integer> next = iterator.next();
             Item value = next.getKey();
             Integer value1 = next.getValue();
-            names.append(value.getName() + " " + value1 + " $" + value.getCost() + " $" + (value.getCost() * value1));
+            names.append(value.getName() + " " + value1 + " $" + String.format("%,.2f", value.getCost()) + " $" + String.format("%,.2f", value.getCost() * value1));
             if (iterator.hasNext()) {
                 names.append("\n");
             }
