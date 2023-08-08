@@ -8,7 +8,6 @@ import com.hackerrank.restaurant.inventory.Inventory;
 import com.hackerrank.restaurant.items.Item;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Order {
     /**
@@ -84,8 +83,8 @@ public class Order {
      * @param item     The item in the order
      * @param quantity The expected quantity of the increment
      *                 <pre>
-     *                                                                 {@code updatedQuantity = currentQuantity + quantity;}
-     *                                                                 </pre>
+     *                                                                                 {@code updatedQuantity = currentQuantity + quantity;}
+     *                                                                                 </pre>
      * @throws BadQuantityException   When the quantity is less than or equal to zero
      * @throws NoSuchItemException    When the item is not available
      * @throws NotEnoughItemException When the updated quantity is greater than the quantity in the inventory
@@ -114,8 +113,8 @@ public class Order {
      * @param item     The item in the order
      * @param quantity The expected quantity of the decrement
      *                 <pre>
-     *                                                                 {@code updatedQuantity = currentQuantity - quantity;}
-     *                                                                 </pre>
+     *                                                                                 {@code updatedQuantity = currentQuantity - quantity;}
+     *                                                                                 </pre>
      * @throws BadQuantityException   When the quantity is less than or equal to zero
      * @throws NoSuchItemException    When the item is not available
      * @throws NotEnoughItemException When the updated quantity is less than zero
@@ -139,9 +138,9 @@ public class Order {
         }
 
         Inventory.inventory.incrementQuantity(item, quantity);
-        if(newQuantity == 0){
+        if (newQuantity == 0) {
             this.items.remove(item);
-        }else {
+        } else {
             this.items.put(item, newQuantity);
         }
     }
@@ -178,7 +177,7 @@ public class Order {
             Map.Entry<Item, Integer> next = iterator.next();
             Item value = next.getKey();
             Integer value1 = next.getValue();
-            names.append(value.getName() + " " + value1 + " $" + String.format("%,.2f", value.getCost()) + " $" + String.format("%,.2f", value.getCost() * value1));
+            names.append(value.getName()).append(" ").append(value1).append(" $").append(String.format("%,.2f", value.getCost())).append(" $").append(String.format("%,.2f", value.getCost() * value1));
             if (iterator.hasNext()) {
                 names.append("\n");
             }
